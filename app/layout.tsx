@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 import SessionProviderWrapper from "@/components/wrappers/SessionProvider"
+import Toaster from "@/components/wrappers/SonnerToaster"
 
 export const metadata: Metadata = {
   title: {
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <SessionProviderWrapper>
               <div className="relative flex min-h-screen flex-col">
+                <Toaster />
                 <SiteHeader />
                 <div className="flex-1">{children}</div>
               </div>

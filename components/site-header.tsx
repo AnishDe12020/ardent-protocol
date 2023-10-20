@@ -8,7 +8,6 @@ import { siteConfig } from "@/config/site"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import {
@@ -20,8 +19,6 @@ import {
 
 export function SiteHeader() {
   const { data: session, status } = useSession()
-
-  console.log(session, status)
 
   return (
     <header className="bg-background sticky top-0 z-40 w-full border-b">
@@ -50,7 +47,9 @@ export function SiteHeader() {
             ) : (
               <>
                 {!session ? (
-                  <Button onClick={async () => await signIn()}>Sign In</Button>
+                  <Button onClick={async () => await signIn("google")}>
+                    Sign In
+                  </Button>
                 ) : (
                   <DropdownMenu>
                     <DropdownMenuTrigger>
