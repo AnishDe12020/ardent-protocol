@@ -95,7 +95,7 @@ const Upload = ({
   return (
     <div className="flex flex-col gap-2 w-[300px]">
       <div
-        className="flex flex-col gap-4 bg-secondary rounded-xl p-4 border border-dashed border-slate-500"
+        className="flex flex-col gap-4 rounded-xl p-4 border border-dashed border-slate-500"
         {...getRootProps()}
       >
         <input {...getInputProps()} />
