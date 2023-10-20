@@ -52,7 +52,7 @@ const NewOrgPage = () => {
     setIsCreating(true)
 
     try {
-      const res = await axios.post("/api/batch", {
+      const res = await axios.post("/api/orgs", {
         name: values.name,
         logo: values.logo,
         nftImage: values.nftImage,
@@ -60,7 +60,7 @@ const NewOrgPage = () => {
 
       router.push(`/dashboard/orgs/${res.data.id}`)
 
-      toast.success("Batch and vaccines created")
+      toast.success("Or created")
       setIsCreating(false)
     } catch (e) {
       setIsCreating(false)
