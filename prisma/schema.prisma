@@ -15,9 +15,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  email String @unique
-  orgs  Org[]
-  nfts  Nft[]
+  email  String @unique
+  avatar String
+
+  orgs Org[]
+  nfts Nft[]
 }
 
 model Org {

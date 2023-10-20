@@ -1,12 +1,28 @@
+"use client"
+
 import Link from "next/link"
+import { LogOutIcon } from "lucide-react"
+import { signIn, signOut, useSession } from "next-auth/react"
 
 import { siteConfig } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
 
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu"
+
 export function SiteHeader() {
+  const { data: session, status } = useSession()
+
+  console.log(session, status)
+
   return (
     <header className="bg-background sticky top-0 z-40 w-full border-b">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -28,22 +44,34 @@ export function SiteHeader() {
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
-            <Link
-              href={siteConfig.links.twitter}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={buttonVariants({
-                  size: "icon",
-                  variant: "ghost",
-                })}
-              >
-                <Icons.twitter className="h-5 w-5 fill-current" />
-                <span className="sr-only">Twitter</span>
-              </div>
-            </Link>
-            <ThemeToggle />
+
+            {status === "loading" ? (
+              <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
+            ) : (
+              <>
+                {!session ? (
+                  <Button onClick={async () => await signIn()}>Sign In</Button>
+                ) : (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <Avatar>
+                        <AvatarImage src={session?.user?.image as any} />
+                        <AvatarFallback>US</AvatarFallback>
+                      </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem
+                        onClick={async () => await signOut()}
+                        className="text-red-500"
+                      >
+                        <LogOutIcon className="w-4 h-4 mr-2" />
+                        <span>Disconenct Wallet</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
+              </>
+            )}
           </nav>
         </div>
       </div>
