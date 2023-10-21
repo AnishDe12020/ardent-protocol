@@ -64,7 +64,7 @@ export function SiteHeader() {
                         className="text-red-500"
                       >
                         <LogOutIcon className="w-4 h-4 mr-2" />
-                        <span>Disconenct Wallet</span>
+                        <span>Logout</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
