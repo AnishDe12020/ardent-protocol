@@ -1,15 +1,13 @@
-import { Tier } from "@prisma/client"
-
 export const getTier = (points: number) => {
   if (points > 50) {
-    return Tier.DIAMOND
+    return "DIAMOND"
   } else if (points > 25) {
-    return Tier.PLATINUM
+    return "PLATINUM"
   } else if (points > 10) {
-    return Tier.GOLD
+    return "GOLD"
   } else if (points > 5) {
-    return Tier.SILVER
+    return "SILVER"
   } else {
-    return Tier.BRONZE
+    return "BRONZE"
   }
 }

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+import ReactQueryProvider from "@/components/wrappers/ReactQueryProvider"
 import SessionProviderWrapper from "@/components/wrappers/SessionProvider"
 import Toaster from "@/components/wrappers/SonnerToaster"
 
@@ -44,12 +45,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <SessionProviderWrapper>
-              <div className="relative flex min-h-screen flex-col">
-                <Toaster />
-                <SiteHeader />
-                <div className="flex-1">{children}</div>
-              </div>
-              <TailwindIndicator />
+              <ReactQueryProvider>
+                <div className="relative flex min-h-screen flex-col">
+                  <Toaster />
+                  <SiteHeader />
+                  <div className="flex-1">{children}</div>
+                </div>
+                <TailwindIndicator />
+              </ReactQueryProvider>
             </SessionProviderWrapper>
           </ThemeProvider>
         </body>

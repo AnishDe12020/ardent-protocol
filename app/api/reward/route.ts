@@ -65,6 +65,12 @@ export const POST = async (req: Request) => {
             },
           ],
         },
+      },
+      {
+        headers: {
+          "x-client-secret": process.env.CROSSMINT_KEY,
+          "x-project-id": process.env.CROSSMINT_PROJECT_ID,
+        },
       }
     )
 
@@ -80,6 +86,8 @@ export const POST = async (req: Request) => {
 
     return new Response(JSON.stringify(nft), { status: 200 })
   }
+
+  let tokenAddress
 
   const res = await axios.post(
     `https://staging.crossmint.com/api/2022-06-09/collections/${org.collectionId}/nfts`,
@@ -103,9 +111,14 @@ export const POST = async (req: Request) => {
           },
         ],
       },
+    },
+    {
+      headers: {
+        "x-client-secret": process.env.CROSSMINT_KEY,
+        "x-project-id": process.env.CROSSMINT_PROJECT_ID,
+      },
     }
   )
-
   const nft = await prisma.nft.create({
     data: {
       nftId: res.data.id,

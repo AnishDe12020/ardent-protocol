@@ -3,9 +3,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { NavItem } from "@/types/nav"
-import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { Icons } from "@/components/icons"
 
 interface MainNavProps {
   items?: NavItem[]
@@ -13,8 +11,6 @@ interface MainNavProps {
 
 export function MainNav({ items }: MainNavProps) {
   const pathname = usePathname()
-
-  console.log(pathname)
 
   return (
     <div className="flex gap-6 md:gap-10 rounded-full py-2 px-2 bg-secondary shadow-md">
@@ -30,6 +26,9 @@ export function MainNav({ items }: MainNavProps) {
                     "flex items-center text-sm font-medium px-3 py-1 rounded-full cursor-pointer hover:bg-tertiary transition duration-150",
                     pathname === item.href ? "bg-primary text-black" : "null",
                     pathname.includes("dashboard") && item.href === "/dashboard"
+                      ? "bg-primary text-black"
+                      : null,
+                    pathname.includes("demo") && item.href === "/demo"
                       ? "bg-primary text-black"
                       : null
                   )}

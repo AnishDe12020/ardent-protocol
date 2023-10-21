@@ -13,6 +13,7 @@ export const siteConfig = {
       title: "Dashboard",
       href: "/dashboard",
     },
+    { title: "Demo", href: "/demo" },
   ],
   links: {
     github: "https://github.com/AnishDe12020/ardent-protocol",
