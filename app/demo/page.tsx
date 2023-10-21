@@ -8,7 +8,7 @@ import { toast } from "sonner"
 
 import { Button, buttonVariants } from "@/components/ui/button"
 
-export const PROJECT_ID = 1
+const PROJECT_ID = 1
 
 const DemoPage = () => {
   const { data: session } = useSession()
