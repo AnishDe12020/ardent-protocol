@@ -16,7 +16,7 @@ const DemoPage = () => {
 
   const [isBuying, setIsBuying] = useState(false)
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["points"],
     queryFn: async () => {
       const res = await axios.get(`/api/reward/${PROJECT_ID}`)
@@ -24,13 +24,26 @@ const DemoPage = () => {
     },
   })
 
-  const { data: nftData } = useQuery({
+  const { data: nftData, isLoading: isNFTLoading } = useQuery({
     queryKey: ["nft"],
-    queryFn: async () => {},
+    queryFn: async () => {
+      const status = await axios.get(
+        `https://staging.crossmint.com/api/2022-06-09/collections/${data.org.collectionId}/nfts/${data.userNFT.nftId}`,
+        {
+          headers: {
+            "x-client-secret": process.env.NEXT_PUBLIC_CROSSMINT_KEY,
+            "x-project-id": process.env.NEXT_PUBLIC_CROSSMINT_PROJECT_ID,
+          },
+        }
+      )
+
+      return status.data
+    },
     enabled: !!data?.userNFT?.nftId,
+    refetchInterval: 1000,
   })
 
-  console.log(data)
+  console.log(nftData)
 
   return (
     <div className="container max-w-5xl mt-16 h-full w-full">
@@ -71,16 +84,21 @@ const DemoPage = () => {
           Buy Coffee
         </Button>
         <p>Points: {data?.userNFT?.points ?? 0}</p>
-
-        {data?.userNFT && (
-          <a
-            href="https://solscan.io/token/3Tj6mJxSzWkE5PtCpMjEF1msUu5NVxVgb1Cqds4nNXdd?cluster=devnet"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={buttonVariants({ className: "mt-4 w-fit" })}
-          >
-            View NFT on Solscan
-          </a>
+        {!isLoading && !isNFTLoading && data?.userNFT && (
+          <>
+            {nftData ? (
+              <a
+                href={`https://solscan.io/token/${nftData.onChain.mintHash}?cluster=devnet`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonVariants({ className: "mt-4 w-fit" })}
+              >
+                View NFT on Solscan
+              </a>
+            ) : (
+              <p>Minting...</p>
+            )}
+          </>
         )}
       </div>
     </div>

@@ -87,8 +87,6 @@ export const POST = async (req: Request) => {
     return new Response(JSON.stringify(nft), { status: 200 })
   }
 
-  let tokenAddress
-
   const res = await axios.post(
     `https://staging.crossmint.com/api/2022-06-09/collections/${org.collectionId}/nfts`,
     {
