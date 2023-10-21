@@ -1,5 +1,6 @@
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/site"
@@ -11,14 +12,14 @@ interface MainNavProps {
 }
 
 export function MainNav({ items }: MainNavProps) {
+  const pathname = usePathname()
+
+  console.log(pathname)
+
   return (
-    <div className="flex gap-6 md:gap-10">
-      <Link href="/" className="flex items-center space-x-2">
-        <Icons.logo className="h-6 w-6" />
-        <span className="inline-block font-bold">{siteConfig.name}</span>
-      </Link>
+    <div className="flex gap-6 md:gap-10 rounded-full py-2 px-2 bg-secondary shadow-md">
       {items?.length ? (
-        <nav className="flex gap-6">
+        <nav className="flex gap-1">
           {items?.map(
             (item, index) =>
               item.href && (
@@ -26,8 +27,11 @@ export function MainNav({ items }: MainNavProps) {
                   key={index}
                   href={item.href}
                   className={cn(
-                    "flex items-center text-sm font-medium text-muted-foreground",
-                    item.disabled && "cursor-not-allowed opacity-80"
+                    "flex items-center text-sm font-medium px-3 py-1 rounded-full cursor-pointer hover:bg-tertiary transition duration-150",
+                    pathname === item.href ? "bg-primary text-black" : "null",
+                    pathname.includes("dashboard") && item.href === "/dashboard"
+                      ? "bg-primary text-black"
+                      : null
                   )}
                 >
                   {item.title}

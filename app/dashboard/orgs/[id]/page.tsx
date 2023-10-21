@@ -15,6 +15,8 @@ const OrgPage = async ({
     },
   })
 
+  console.log(org)
+
   if (!org) {
     notFound()
   }

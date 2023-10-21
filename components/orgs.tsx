@@ -23,7 +23,10 @@ const Orgs = ({ orgs }: { orgs: Org[] }) => {
               <p className="text-xl font-bold">{org.name}</p>
             </div>
 
-            <Link className={buttonVariants()} href={`/dashboard/orgs/1`}>
+            <Link
+              className={buttonVariants()}
+              href={`/dashboard/orgs/${org.id}`}
+            >
               Manage
             </Link>
           </div>

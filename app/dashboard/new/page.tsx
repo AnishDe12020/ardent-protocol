@@ -60,7 +60,7 @@ const NewOrgPage = () => {
 
       router.push(`/dashboard/orgs/${res.data.id}`)
 
-      toast.success("Or created")
+      toast.success("Org created")
       setIsCreating(false)
     } catch (e) {
       setIsCreating(false)
