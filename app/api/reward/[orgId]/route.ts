@@ -36,7 +36,7 @@ export const GET = async (
   }
 
   const userNFT = org.nfts.find(
-    (nft) => nft.user.email === session?.user?.email
+    (nft: any) => nft.user.email === session?.user?.email
   )
 
   return new Response(JSON.stringify({ org, userNFT: userNFT ?? null }), {
