@@ -31,8 +31,8 @@ export const POST = async (req: Request) => {
     },
     {
       headers: {
-        "x-client-secret": process.env.CROSSMINT_KEY,
-        "x-project-id": process.env.CROSSMINT_PROJECT_ID,
+        "x-client-secret": process.env.NEXT_PUBLIC_CROSSMINT_KEY,
+        "x-project-id": process.env.NEXT_PUBLIC_CROSSMINT_PROJECT_ID,
       },
     }
   )

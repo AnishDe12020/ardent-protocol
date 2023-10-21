@@ -6,7 +6,7 @@ import axios from "axios"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
 
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 
 export const PROJECT_ID = 1
 
@@ -22,6 +22,12 @@ const DemoPage = () => {
       const res = await axios.get(`/api/reward/${PROJECT_ID}`)
       return res.data
     },
+  })
+
+  const { data: nftData } = useQuery({
+    queryKey: ["nft"],
+    queryFn: async () => {},
+    enabled: !!data?.userNFT?.nftId,
   })
 
   console.log(data)
@@ -65,6 +71,17 @@ const DemoPage = () => {
           Buy Coffee
         </Button>
         <p>Points: {data?.userNFT?.points ?? 0}</p>
+
+        {data?.userNFT && (
+          <a
+            href="https://solscan.io/token/3Tj6mJxSzWkE5PtCpMjEF1msUu5NVxVgb1Cqds4nNXdd?cluster=devnet"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonVariants({ className: "mt-4 w-fit" })}
+          >
+            View NFT on Solscan
+          </a>
+        )}
       </div>
     </div>
   )
